@@ -29,3 +29,17 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install
+
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v6
+      with:
+        image: 1673774/aj-github-actions
+        tags: v1, latest
+        registry: docker.io
+        dockerfile: Dockerfile
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+# 1. After Building the Code Now we want to tell the Actions to Push the Image to Docker by login to Docker
+# 2. After login we need to build a docker image
+# 3. Push the image to docker hub
